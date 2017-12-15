@@ -1,3 +1,15 @@
+/* =============================================================================
+#     FileName: utils.cpp
+#         Desc:
+#       Author: YanlongLi
+#        Email: lansunlong@gmail.com
+#     HomePage:
+#      Created: 2017-12-15 09:24:02
+#      Version: 0.0.1
+#   LastChange: 2017-12-15 09:24:02
+#      History:
+#               0.0.1 | YanlongLi | init
+============================================================================= */
 #include "headers.h"
 
 using namespace std;
