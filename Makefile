@@ -24,4 +24,4 @@ gtest-all.o:
 		-pthread -c ${GTEST_DIR}/src/gtest-all.cc
 
 clean:
-	@rm *.o *.a
+	@rm *.o *.a test

@@ -1,11 +1,11 @@
 #include "headers.h"
 #include "tree.h"
 #include "tree_serialize.h"
+#include "utils.h"
 
 #include "gtest/gtest.h"
 
 using namespace std;
-
 /*
  *
  */
@@ -66,6 +66,31 @@ TEST(TreeSerializeTest, SerializeTree) {
 
     delete_node(node1);
     delete_node(new_root);
+}
+
+/*
+ *
+ */
+TEST(TreeSerializeTest, SerializeTreePostorderNULL) {
+    EXPECT_EQ("", serialize_postorder(NULL));
+    EXPECT_EQ(NULL, deserialize_postorder(""));
+}
+
+TEST(TreeSerializeTest, SerializeTreePostorder) {
+    TreeNode* node1 = new TreeNode(1);
+    TreeNode* node2 = new TreeNode(2);
+    TreeNode* node3 = new TreeNode(3);
+    TreeNode* node4 = new TreeNode(4);
+    node1->left = node2;
+    node1->right = node3;
+    node3->left = node4;
+
+    string s =  "1,2,#,#,3,4,#,#,#";
+    TreeNode* new_root = deserialize_postorder(s);
+    EXPECT_EQ(s, serialize_postorder(node1));
+    EXPECT_EQ(true, tree_equal(node1, new_root));
+
+    delete_node(node1);
 }
 
 /*

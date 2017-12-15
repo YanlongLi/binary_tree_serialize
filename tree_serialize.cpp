@@ -38,7 +38,6 @@ string serialize(TreeNode* root) {
     return res;
 }
 
-
 /*
  *
  */
@@ -60,3 +59,42 @@ TreeNode* deserialize(string s) {
     return nodes[0];
 }
 
+/*
+ *        1
+ *       / \
+ *      2   3
+ *         /
+ *        4
+ *
+ * "1,2,#,#,3,4,#,#,#"
+ */
+string _serialize_postorder(TreeNode* node) {
+    if (node == NULL) return "#";
+    return to_string(node->val) + "," + _serialize_postorder(node->left) + "," + _serialize_postorder(node->right);
+}
+
+string serialize_postorder(TreeNode* node) {
+    if (node == NULL) return "";
+    return _serialize_postorder(node);
+}
+
+TreeNode* _deserialize_postorder(const vector<TreeNode*>& nodes, int& i) {
+    TreeNode* cur = nodes[i++];
+    if (cur != NULL) {
+        cur->left = _deserialize_postorder(nodes, i);
+        cur->right = _deserialize_postorder(nodes, i);
+    }
+}
+
+TreeNode* deserialize_postorder(string s) {
+    if (s.length() == 0) return NULL;
+    vector<string> str_nodes = str_split(s, ',');
+    vector<TreeNode*> nodes(str_nodes.size(), NULL);
+    for (int i = 0; i < str_nodes.size(); i++) {
+        if (str_nodes[i] != "#") {
+            nodes[i] = new TreeNode(stoi(str_nodes[i]));
+        }
+    }
+    int i = 0;
+    return _deserialize_postorder(nodes, i);
+}
